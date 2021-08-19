@@ -1,7 +1,7 @@
 
 # QTool: A Low-bit Quantization Toolbox for Deep Neural Networks in Computer Vision
 
-This project provides aboundant choices of quantization strategies (such as the quantization algorithms, training schedules and empirical tricks) for quantizing the image classification neural networks into low-bit counterparts. Associated projects demonstrate that this project can also act as a flexible plugin and benefit other computer vision tasks, such as object detection, segmentation and text parsing. Pretrained models are provided to show high standard of the code on achieving appealing quantization performance. 
+This project provides abundant choices of quantization strategies (such as the quantization algorithms, training schedules and empirical tricks) for quantizing the deep neural networks into low-bit counterparts. This project can act as a flexible plugin and benefit various computer vision tasks, such as image classification, dense detection and segmentation, text parsing and super resolution. Pretrained models are provided to show high standard of the code on achieving appealing quantization performance. 
 
 ## Instructions for different tasks
 
