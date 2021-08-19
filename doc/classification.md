@@ -2,7 +2,7 @@
 
 ## Install
 
-1. Clone the repo (change the `FASTDIR` as perferred):
+1. Clone the repo (change the `FASTDIR` as preferred):
 ```
 export FASTDIR=/workspace
 cd $FASTDIR/git/
@@ -49,7 +49,7 @@ ln -s ../pytorch-utils utils
 
 ## Quick Start
 
-   Both training and testing employ the `train.sh` script. Directly call the `main.py` is also possible.
+   Both training and testing employ the `train.sh` script. Directly calling the `main.py` is also possible.
 
    ```
    bash train.sh config.xxxx
@@ -80,7 +80,7 @@ ln -s ../pytorch-utils utils
 
 - Option parsing
 
-  Common options are parsed in `util/config.py`. Quantization related options are separated in the `main.py`.
+  Common options are parsed in `util/config.py`. Quantization related options are separate in the `main.py`.
 
 - Keyword (choosing quantization method)
 
@@ -102,21 +102,21 @@ ln -s ../pytorch-utils utils
 
   a. `origin` exists / not exists in `keyword` is to choose whether the bi-real skip connection is preferred (Block-wise skip connection versus layer-wise skip connection).
   
-  b. `bacs` or `cbas`, etc, indicate the layer order in a ResNet block. For example, `bacs` is a kind of pre-activation structure, representing in a ResNet block, first normalization layer, then activation layer, then convolutional layer and last skip connection layer. For pre-activation structure, `preBN` is required for the first ResNet block.  Refer [resnet.md](./resnet.md) for more information.
+  b. `bacs` or `cbas`, etc, indicate the layer order in a ResNet block. For example, `bacs` is a kind of pre-activation structure, typically in a ResNet block, first normalization layer, then activation layer, then convolutional layer and last skip connection layer. For pre-activation structure, `preBN` is required for the first ResNet block.  Refer [resnet.md](./resnet.md) for more information.
   
   c. By default all layers except the first and last layers are quantized, `real_skip` can be added to keep the skip connection layers in ResNet to full precision, which is widely used in Xnor-net and Bi-Real net.
   
-  d. For the normalization layer and activation layer, we also provide some `keyword` for different variants. For example, `NRelU` means do not include ReLU activation in the network and `PRelU` indicates PReLU is employed. Refer `model/layer.py` for details. 
+  d. For the normalization layer and activation layer, we also provide some `keyword` for different variants. For example, `NRelU` means it does not include ReLU activation in the network and `PRelU` indicates PReLU is employed. Refer `model/layer.py` for details. 
   
-  e. Padding and quantization order. I think it is an error if padding the feature map with 0 after quantization, especially in BNNs. From my perspective, the strategy makes BNNs to become TNNs. Thus, I advocate to pad the feature map with zero first and then go through the quantization step. To keep compatible with the publication as well as providing a revised method, `padding_after_quant` can be set to control the order between padding and quantization. Refer line 445 in `model/quant.py` for the implementation.
+  e. Padding and quantization order. I think it is an error if padding the feature map with 0 after quantization, especially in BNNs. From my perspective, the strategy makes BNNs become TNNs. Thus, I advocate to pad the feature map with zero first and then go through the quantization step. To keep compatible with the publication as well as providing a revised method, `padding_after_quant` can be set to control the order between padding and quantization. Refer line 445 in `model/quant.py` for the implementation.
   
   f. Skip connection realization. Two choices are provided. One is the avgpooling with stride followed by a conv1x1 with stride=1. Another is just one conv1x1 with stride as demanded. `singleconv` in `keyword` is used for the choice.
   
   g. `fixup` is used to enable the architecture in Fixup Initialization. 
   
-  h. The option `base` which is a standalone option rather a word in the `keyword` list is used to realize the branch configuration in Group-Net.
+  h. The option `base` which is a standalone option rather than a word in the `keyword` list is used to realize the branch configuration in Group-Net.
   
-  Self-defined `keyword` is supported and can be easily realized according the user's own desire. As introduced above, the options can be combined to build up different variant architectures. Examples can be found in the `config` subfolder.
+  Self-defined `keyword` is supported and can be easily realized according to the user's own desire. As introduced above, the options can be combined to build up different variant architectures. Examples can be found in the `config` subfolder.
 
 - Activation and weight quantization options
 
@@ -132,7 +132,7 @@ ln -s ../pytorch-utils utils
 
   Three major related options.
 
-  1. `--wd` set the default L2 weight decay value.
+  1. `--wd` sets the default L2 weight decay value.
   
   2. Weight decay is originally proposed to avoid overfit for the large number of parameters. For some small tensors, for example the parameters in BatchNorm layer (as well as custom defined quantization parameters, such as clip-value), weight decay is advocated to be zero. `--decay_small` is for whether to decay those small tensors or not.
   
@@ -150,7 +150,7 @@ ln -s ../pytorch-utils utils
   4. `--custom_lr_list` and `--custom_lr` are provided similarly with before mentioned weight decay to specific custom learning rate for certain parameters.
 
 - Mixed precision training
-  options `--fp16` and `--opt_level [O1]` are provided for mix precision traning.
+  options `--fp16` and `--opt_level [O1]` are provided for mix precision training.
 
   1. FP32
   
