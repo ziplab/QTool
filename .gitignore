@@ -1,0 +1,38 @@
+# folder
+exp
+full_precision_weights/
+weights
+__pycache__/
+ipytorch
+tmp
+log
+
+# tmp files
+*.swp
+*.o
+*.bak
+.python-version
+:w*
+;w*
+*.txt
+*.pyc
+*-origin.py
+.config*
+*.swn
+*.swm
+*.swo
+*.swj
+*.swl
+*.swk
+*.swi
+
+# env
+.env
+
+# script
+convert_onnx.py
+convert_onnx.sh
+
+# config
+memory.config
+config.*
