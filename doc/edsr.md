@@ -21,7 +21,7 @@ The repo https://github.com/blueardour/EDSR-PyTorch is still marked privated. Re
  
    ```
 
-3. make sure the symbolic link is correct. Create the link if not exists.
+3. make sure the symbolic link is correct. Create the link if it does not exist.
    ```
    cd /workspace/git/EDSR-PyTorch/src/
    ls -l third_party
