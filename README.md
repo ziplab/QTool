@@ -50,7 +50,9 @@ This project includes the implementation of some of our works:
 
 ```
 
-Also cite the corresponding publications when you choose [dedicated algorithms](./doc/reference.md).
+Also cite the corresponding publications when you choose ** [dedicated algorithms](./doc/reference.md)**.
+
+We are integrating more of our work and other great studies into this project. 
 
 ## Contribute
 
