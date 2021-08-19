@@ -98,6 +98,25 @@ def deploy_on_init(model, filename, verbose=print):
             if hasattr(m, 'update_quantization_parameter'):
                 m.update_quantization_parameter(**attributes)
 
+    # relu layer
+    index = 1
+    for m in model.modules():
+        if hasattr(m, 'update_relu_quantization_parameter'):
+            m.update_relu_quantization_parameter(index=index)
+            index = index + 1
+
+    policies = read_policy(filename, 'relu', verbose=verbose)
+    verbose("loading 'relu' section of policy")
+    verbose(policies)
+    for p in policies:
+        attributes = p
+        assert isinstance(attributes, dict), "Error attributes"
+        index = 0
+        for m in model.modules():
+            if hasattr(m, 'update_relu_quantization_parameter'):
+                m.update_relu_quantization_parameter(**attributes)
+                index = index + 1
+
     # norm layer
     index = 0
     for m in model.modules():

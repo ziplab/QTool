@@ -8,7 +8,7 @@
    loading third party model failed cannot import name 'model_zoo' from 'third_party' (unknown location)
    ```
    
-3. Some words in the filename or config file are misspelled and we tried to revise them as long as we found one. However, there are still some typos in histroy filenames. Thus, latency files might suffer from 'not-found' error. Check the filename if meeting such a situation. 
+3. Some words in the filename or config file are misspelled and we revise them anytime we found one. Thus, latency files might suffer from 'not-found' error. Check the filename if meeting such a situation. 
 
 4. Pytorch version mismatch. Please upgrade pytorch version.
 

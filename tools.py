@@ -38,9 +38,10 @@ def export_onnx(args):
         print("no pretrained file exists({}), init model with default initlizer".
             format(args.old))
 
+    print("Model", model)
     onnx_model = torch.nn.Sequential(OrderedDict([
         ('network', model),
-        #('softmax', torch.nn.Softmax()),
+        ('softmax', torch.nn.Softmax()),
     ]))
 
     onnx_path = "onnx/" + model_name
@@ -58,7 +59,6 @@ def export_onnx(args):
             verbose=True,
             input_names=input_names,
             output_names=output_names,
-            opset_version=7,
             keep_initializers_as_inputs=True
             )
 

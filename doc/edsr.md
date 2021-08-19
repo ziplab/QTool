@@ -1,7 +1,5 @@
 
-# Quantization for Super Resolution
-
-The repo https://github.com/blueardour/EDSR-PyTorch is still marked privated. Refer to https://github.com/billhhh/FQSR if needed.
+# Quantization for Super Resolution (EDSR)
 
 ## Install
 
@@ -49,16 +47,3 @@ Ongoing `config.*` is advised to put in `/workspace/git/EDSR-PyTorch/src`. Verif
 - [Super resolution](./result_sr.md)
 
 We provide pretrained models gradually in [google drive](https://drive.google.com/drive/folders/1vwxth9UB8AMbYP7cJxaWE9S0z9fueZ5J?usp=sharing)
-
-
-## Cite
-
-If you found the work useful, please cite
-```
-@misc{wang2021fully,
-      title={Fully Quantized Image Super-Resolution Networks}, 
-      author={Hu Wang and Peng Chen and Bohan Zhuang and Chunhua Shen},
-      year={2021},
-      booktitle=ACMMM,
-}
-```

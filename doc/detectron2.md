@@ -49,10 +49,9 @@ The framework is able to provide quantization support for all kinds of tasks tha
 
 3. make sure the symbolic link is correct.
    ```
-   cd $FASTDIR/git/detectron2/third_party
-   ln -s $FASTDIR/git/model-quantization/models quantization
-   ls -l
-   # the third_party/quantization should point to $FASTDIR/git/model-quantization/models   
+   cd $FASTDIR/git/detectron2
+   ls -l third_party
+   # the third_party/quantization should point to $FASTDIR/git/model-quantization/models
    ```
 
 ## Dataset
@@ -149,10 +148,11 @@ We provide pretrained models in [google drive](https://drive.google.com/drive/fo
  </del>
 
   - [optional] Import custom pretrained backbone
-  If custom backbone is pretrained on imagenet classification. Import the weight parameters to detection project. For example, if taking the pytorch ResNet (rather than MSRA ResNet) as the backbone, run script:
+
+    If custom backbone is pretrained on imagenet classification. Import the weight parameters to detection project. For example, if taking the pytorch ResNet (rather than MSRA ResNet) as the backbone, run script:
   
     ```
-    cd $FASTDIR/git/model-quantization
+    cd /workspace/git/model-quantization
     # prepare the weights/det-resnet18/mf.txt and weights/det-resnet18/mt.txt
     # the two files are created manually with the parameter renaming
     python tools.py --keyword update,raw --mf weights/det-resnet18/mf.txt --mt weights/det-resnet18/mt.txt --old weights/pytorch-resnet18/resnet18-5c106cde.pth --new weights/det-resnet18/resnet18_w32a32.pth
@@ -161,71 +161,30 @@ We provide pretrained models in [google drive](https://drive.google.com/drive/fo
     The `mf.txt` and `mt.txt` files for the Resnet18 are uploaded in the `model-quantization` project as an example. The files for Resnet50 are also provided. Refer [tools.md](./tools.md) for more instructions.
 
   - Train full-precision FCOS-R18-1x
-  There are some minor revisions on the architecture compared to official ones, such as additional ReLU layers. Check the configuration file `configs/FCOS-Detection/R_18_1x-Full-SyncBN-FixFPN.yaml`
+
+    There are some minor revisions on the architecture compared to official ones, such as additional ReLU layers. Check the configuration file `configs/FCOS-Detection/R_18_1x-Full-SyncBN-FixFPN.yaml`
   
     ```
-    cd $FASTDIR/git/AdelaiDet    
-    python tools/train_net.py --config-file configs/FCOS-Detection/R_18_1x-Full-SyncBN-FixFPN.yaml 
-    # append more options, such as the GPU number: --num-gpus 2
+    cd /workspace/git/AdelaiDet
+    # add other options, such as the GPU number as needed
+    python tools/train_net.py --config-file configs/FCOS-Detection/R_18_1x-Full-SyncBN-FixFPN.yaml
     ```
     
     ***Check the parameters in the backbone are re-loaded correctly***
 
     This step would obtain the pretrained model in `output/fcos/R_18_1x-Full-SyncBN-FixFPN/model_final.pth`
 
-  - Fintune to get quantized model 
-  Check the configuration file `configs/FCOS-Detection/R_18_1x-Full-SyncBN-FixFPN-FixPoint-lsq-M2F8L8.yaml`
+  - Fintune to get quantized model
+
+    Check the configuration file `configs/FCOS-Detection/R_18_1x-Full-SyncBN-FixFPN-FixPoint-lsq-M2F8L8.yaml`
   
     ```
-    cd $FASTDIR/git/AdelaiDet
+    cd /workspace/git/AdelaiDet
+    # add other options, such as the GPU number as needed
     python tools/train_net.py --config configs/FCOS-Detection/R_18_1x-Full-SyncBN-FixFPN-FixPoint-lsq-M2F8L8.yaml
-    # append more options, such as the GPU number: --num-gpus 2
     ```
-<del>
+    
     Note: We had a bug on the config, `R_18_1x-Full-SyncBN-FixFPN-FixPoint-lsq-M2F8L8.yaml` actually set all the layers (feature maps and weight) except the input image to 2bit. The first and last layers are also 2-bit quantized, rather than 8bit quantized. Check the log file for exact configuration.
-</del>
-
-### Text Spotting
-
-- ABCnet ResNet-18
-
-  - Pretrain the full-precision model
-  
-  ```
-  cd $FASTDIR/git/AdelaiDet
-  python tools/train_net.py --config configs/BAText/Pretrain/attn_R_18-FPN-SyncBN-FixFPN.yaml
-  # append more options, such as the GPU number: --num-gpus 4
-  ```
-  
-  ```
-  python tools/train_net.py --config configs/BAText/CTW1500/attn_R_18-FPN-SyncBN-FixFPN.yaml
-  # append more options, such as the GPU number: --num-gpus 4  
-  ```
-  
-  - 4bit Quantization training
-  ```
-  python tools/train_net.py --config configs/BAText/Pretrain/attn_R_18-FPN-SyncBN-FixFPN-lsq-4bit.yaml
-  # append more options, such as the GPU number: --num-gpus 4  
-  ```
-  ```
-  python tools/train_net.py --config configs/BAText/CTW1500/attn_R_18-FPN-SyncBN-FixFPN-lsq-4bit.yaml
-  # append more options, such as the GPU number: --num-gpus 4  
-  ```
-  
-  - BNN evaluation (pretrained model available in [Google Drive](./detectron2.md#Pretrained-models-and-quantization-results))
-  ```
-  python tools/train_net.py --eval --config configs/BAText/CTW1500/attn_R_18-FPN-SyncBN-FixFPN-lsq-bin-progressive.yaml \
-    MODEL.WEIGHTS output/batext/ctw1500/attn_R_18-FPN_SyncBN-FixFPN-lsq-bin-progressive-pbq/model_final.pth
-  ```
-  
-  ```
-  python tools/train_net.py --eval --config configs/BAText/TotalText/attn_R_18-FPN-SyncBN-FixFPN-lsq-bin-progressive.yaml \
-    MODEL.WEIGHTS output/batext/totaltext/attn_R_18-FPN_SyncBN-FixFPN-lsq-bin-progressive-pbq/model_final.pth
-  ```
-  
-
-
-
     
 ## License and contribution 
 

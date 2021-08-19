@@ -57,7 +57,7 @@ ln -s ../pytorch-utils utils
    
    `config.xxxx` is the configuration file, which contains network architecture, quantization related and training related parameters. For more about the supported options, refer below [Training script options](./classification.md#Training-script-options) and [config.md](./config.md). Also refer the examples in `config` subfolder.
    
-   Training is often time-consuming . Try our `start_on_terminate.sh` script which can be used to pend a second task. New round training will start automatically when last training process is terminated.
+   Sometime the training is time-consuming. `start_on_terminate.sh` can be used to wait the process to terminate and start another round of training.
    
    ```
    # wait in a screen shell
