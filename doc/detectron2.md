@@ -9,7 +9,7 @@ The framework is able to provide quantization support for all kinds of tasks tha
 2. download the [Quantization version of detectron2](https://github.com/blueardour/detectron2) project. See [what is modified below](./detectron2.md#what-is-modified-in-the-detectron2-project).
 
    ```
-   export FASTDIR=/workspace # change the FASTDIR as perfered
+   export FASTDIR=/workspace # change the FASTDIR as perferred
    cd $FASTDIR/git/
    git clone https://github.com/blueardour/detectron2
    # checkout the quantization branch
@@ -71,7 +71,7 @@ We provide pretrained models in [google drive](https://drive.google.com/drive/fo
 
 ## What is modified in the detectron2 project
 
-   The [`model-quantization`](https://github.com/blueardour/model-quantization) project can be used as a plugin to other projects to provide the quantization support. We modify the following files to integrate the `model-quantization` project into the `detectron2` / `AdelaiDet` projects. Use `vimdiff` to check the difference. The `model-quantization` project is potential to be equipped into other projects in a similar way.
+   The [`model-quantization`](https://github.com/blueardour/model-quantization) project can be used as a plugin to other projects to provide the quantization support. We modify the following files to integrate the `model-quantization` project into the `detectron2` / `AdelaiDet` projects. Use `vimdiff` to check the difference. The `model-quantization` project has the potential to be equipped into other projects in a similar way.
    
    ```
    modified:   detectron2/checkpoint/detection_checkpoint.py
@@ -88,7 +88,7 @@ We provide pretrained models in [google drive](https://drive.google.com/drive/fo
    new file:   third_party/quantization
    new file:   weights
    ```
-   Make sure the `weights` and `third_party/quantization` link to correct position. 
+   Make sure the `weights` and `third_party/quantization` link to the correct position. 
    
    Highly recommend to check the `detectron2/engine/defaults.py` to see which options are added for the low-bit quantization.
    
@@ -104,7 +104,7 @@ We provide pretrained models in [google drive](https://drive.google.com/drive/fo
 
   Training and testing methods follow original projects ( [detectron2](https://github.com/facebookresearch/detectron2) or [aim-uofa/AdelaiDet](https://github.com/aim-uofa/AdelaiDet) ).
   
-  To obtain the quantization version of the given models, please modify corresponding configuration files by setting quantization related options introduced in the quantization versions of projects. Example of the configurations for quantization are provided in `detectron2/config` and `AdelaiDet/config`, respectively. To learn how the newly introduced options impact the quantization procedure, refer option introduction in [classification.md](./classification.md#Training-script-options) for more detail explanation. We also give an sugggested instruction for the model quanzation, see below [guide](./detectron2.md#special-guide-for-quantization) and [examples](./detectron2.md#Examples) for demonstration.
+  To obtain the quantization version of the given models, please modify corresponding configuration files by setting quantization related options introduced in the quantization versions of projects. Examples of the configurations for quantization are provided in `detectron2/config` and `AdelaiDet/config`, respectively. To learn how the newly introduced options impact the quantization procedure, refer option introduction in [classification.md](./classification.md#Training-script-options) for more detail explanation. We also give an sugggested instruction for the model quanzation, see below [guide](./detectron2.md#special-guide-for-quantization) and [examples](./detectron2.md#Examples) for demonstration.
 
 <del> 
 
@@ -132,7 +132,7 @@ We provide pretrained models in [google drive](https://drive.google.com/drive/fo
  
 - Finetune the low-bit model with double-pass initialization (`overall_full.pt` and `backbone_low.pt`) or single pass initialization (`overall_full.pt`).
 
-- Double-pass initialization is latter found no benefit.
+- Double-pass initialization is later found to have no benefit.
 
 </del>
 
@@ -173,7 +173,7 @@ We provide pretrained models in [google drive](https://drive.google.com/drive/fo
 
     This step would obtain the pretrained model in `output/fcos/R_18_1x-Full-SyncBN-FixFPN/model_final.pth`
 
-  - Fintune to get quantized model 
+  - Finetune to get quantized model 
   Check the configuration file `configs/FCOS-Detection/R_18_1x-Full-SyncBN-FixFPN-FixPoint-lsq-M2F8L8.yaml`
   
     ```
