@@ -1,5 +1,5 @@
 
-# Quantization for Super Resolution
+# Quantization for Low-level Super Resolution
 
 The repo https://github.com/blueardour/EDSR-PyTorch is still marked privated. Refer to https://github.com/billhhh/FQSR if needed.
 
