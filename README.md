@@ -1,5 +1,5 @@
 
-# QTool: A low-bit quantization toolbox for deep neural networks in computer vision
+# QTool: A Low-bit Quantization Toolbox for Deep Neural Networks in Computer Vision
 
 This project provides aboundant choices of quantization strategies (such as the quantization algorithms, training schedules and empirical tricks) for quantizing the image classification neural networks into low-bit counterparts. Associated projects demonstrate that this project can also act as a flexible plugin and benefit other computer vision tasks, such as object detection, segmentation and text parsing. Pretrained models are provided to show high standard of the code on achieving appealing quantization performance. 
 
@@ -24,22 +24,30 @@ Please cite the following work if you find the project helpful.
 ```
 @misc{chen2020qtool,
 author = {Peng Chen, Bohan Zhuang, Jing Liu and Chunlei Liu},
-title = {{QTool: A low-bit quantization toolbox for deep neural networks in computer vision}},
+title = {{QTool: A Low-bit Quantization Toolbox for Deep Neural Networks in Computer Vision}},
 year = {2020},
-howpublished = {\url{https://github.com/aim-uofa/model-quantization}},
+howpublished = {\url{https://github.com/MonashAI/QTool/}},
 note = {Accessed: [Insert date here]}
 }
 ```
 
-For quantized object detection, please cite
+This project includes the implementation of some of our works: 
 ```
-@misc{liu2020aqd,
-    title={AQD: Towards Accurate Quantized Object Detection},
-    author={Peng Chen, Jing Liu, Bohan Zhuang, Mingkui Tan and Chunhua Shen},
-    year={2020},
-    eprint={2007.06919},
-    archivePrefix={arXiv}
+@inproceedings{chen2021aqd,
+  title={Aqd: Towards accurate quantized object detection},
+  author={Chen, Peng and Liu, Jing and Zhuang, Bohan and Tan, Mingkui and Shen, Chunhua},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={104--113},
+  year={2021}
 }
+
+@inproceedings{chen2021fatnn,
+  title={FATNN: Fast and Accurate Ternary Neural Networks},
+  author={Chen, Peng and Zhuang, Bohan and Shen, Chunhua},
+  booktitle={Proceedings of the International Conference on Computer Vision},
+  year={2021}
+}
+
 ```
 
 Also cite the corresponding publications when you choose [dedicated algorithms](./doc/reference.md).
