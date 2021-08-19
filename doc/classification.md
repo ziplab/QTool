@@ -2,7 +2,7 @@
 
 ## Install
 
-1. Clone the repo (change the `FASTDIR` as perfered):
+1. Clone the repo (change the `FASTDIR` as perferred):
 ```
 export FASTDIR=/workspace
 cd $FASTDIR/git/
@@ -23,7 +23,7 @@ ln -s ../pytorch-utils utils
    # python 3 is required
    pip install -r requirement.txt
    ```
-   Quantization for the classification task has not strict requirement on the pytorch version. However, other tasks such as [detection and segmentation](./detectron2.md) require a higher version pytorch. `detectron2` currently require `Torch 1.4`+. Besides, the CUDA version on the machine is advised to keep the same with the one compiling the pytorch.
+   Quantization for the classification task has no strict requirement on the pytorch version. However, other tasks such as [detection and segmentation](./detectron2.md) require a higher version pytorch. `detectron2` currently requires `Torch 1.4`+. Besides, the CUDA version on the machine is advised to keep the same with the one compiling the pytorch.
 
 3. Install Nvidia image pre-processing packages and mix precision training packages (optional, highly recommend)
 
@@ -39,7 +39,7 @@ ln -s ../pytorch-utils utils
    # dataset
    mkdir -p /data/cifar
    mkdir -p /data/imagenet
-   # download imagnet and move the train and evaluation data in in /data/imagenet/{train,val}, respectively.
+   # download imagnet and move the train and evaluation data in /data/imagenet/{train,val}, respectively.
    # cifar dataset can be downloaded on the fly
    ```
 
@@ -55,9 +55,9 @@ ln -s ../pytorch-utils utils
    bash train.sh config.xxxx
    ```
    
-   `config.xxxx` is the configuration file, which contains network architecture, quantization related and training related parameters. For more about the supported options, refer below [Training script options](./classification.md#Training-script-options) and [config.md](./config.md). Also refer the examples in `config` subfolder.
+   `config.xxxx` is the configuration file, which contains network architecture, quantization related and training related parameters. For more about the supported options, refer below [Training script options](./classification.md#Training-script-options) and [config.md](./config.md). Also refer to the examples in `config` subfolder.
    
-   Training is often time-consuming . Try our `start_on_terminate.sh` script which can be used to pend a second task. New round training will start automatically when last training process is terminated.
+   Training is often time-consuming . Try our `start_on_terminate.sh` script which can be used to pend a second task. New round training will start automatically when the last training process is terminated.
    
    ```
    # wait in a screen shell
@@ -66,7 +66,7 @@ ln -s ../pytorch-utils utils
    # Ctl+A D to detach screen to backend
    ```
    
-   Besides, `tools.py` provides many useful functions for debug / verbose / model convert. Refer [tools.md](./tools.md) for detailed usage.
+   Besides, `tools.py` provides many useful functions for debug / verbose / model convertion. Refer [tools.md](./tools.md) for detailed usage.
 
 
 ## Known Issues
@@ -84,7 +84,7 @@ ln -s ../pytorch-utils utils
 
 - Keyword (choosing quantization method)
 
-  The `--keyword` option is one of most important variables to control the model architecture and quantization algorithm choice.
+  The `--keyword` option is one of the most important variables to control the model architecture and quantization algorithm choice.
 
   We currently support quantization algorithms by adding the following options in the `keyword`:
 
@@ -92,9 +92,9 @@ ln -s ../pytorch-utils utils
   
   b. `pact` for PACT
   
-  c. `dorefa` for DoReFa-Net. Besides, additional keyword of `lsq` for learned step size, `non-uniform` for FATNN.
+  c. `dorefa` for DoReFa-Net. Besides, an additional keyword of `lsq` for learned step size, `non-uniform` for FATNN.
   
-  d. `xnor` for XNOR-Net. If `gamma` is combined with the `xnor` in the keyword, a separated learnable scale coefficient is added (It namely becomes the XNor-net++).
+  d. `xnor` for XNOR-Net. If `gamma` is combined with the `xnor` in the keyword, a separated learnable scale coefficient is added (It becomes the XNor-net++).
 
 - Keyword (structure control):
 
@@ -102,7 +102,7 @@ ln -s ../pytorch-utils utils
 
   a. `origin` exists / not exists in `keyword` is to choose whether the bi-real skip connection is preferred (Block-wise skip connection versus layer-wise skip connection).
   
-  b. `bacs` or `cbas`, etc, indicate the layer order in a ResNet block. For example, `bacs` is a kind of pre-activation structure, representing in a ResNet block, first normalization layer, then activation layer, then convolution layer and last skip connection layer. For pre-activation structure, `preBN` is required for the first ResNet block.  Refer [resnet.md](./resnet.md) for more information.
+  b. `bacs` or `cbas`, etc, indicate the layer order in a ResNet block. For example, `bacs` is a kind of pre-activation structure, representing in a ResNet block, first normalization layer, then activation layer, then convolutional layer and last skip connection layer. For pre-activation structure, `preBN` is required for the first ResNet block.  Refer [resnet.md](./resnet.md) for more information.
   
   c. By default all layers except the first and last layers are quantized, `real_skip` can be added to keep the skip connection layers in ResNet to full precision, which is widely used in Xnor-net and Bi-Real net.
   
@@ -126,7 +126,7 @@ ln -s ../pytorch-utils utils
   
   2. `xx_adaptive` in most cases, indicates the additional normalization operation which shows great potential to increase the performance.
   
-  3. `xx_grad_type` defines custom gadient approximation method. In general, the quantization step is not differentiable, techniques such as the STE are used to approximate the gradient. Other types of approximation exist. Besides, in some works, it is advocated to add some scale coefficient to the gradient in order to stabilize the training.
+  3. `xx_grad_type` defines a custom gradient approximation method. In general, the quantization step is not differentiable, techniques such as the STE are used to approximate the gradient. Other types of approximation exist. Besides, in some works, it is advocated to add some scale coefficient to the gradient in order to stabilize the training.
 
 - Weight decay
 
@@ -134,9 +134,9 @@ ln -s ../pytorch-utils utils
 
   1. `--wd` set the default L2 weight decay value.
   
-  2. Weight decay is originally proposed to avoid overfit for the large number of parameters. For some small tensors, for example the parameters in BatchNorm layer (as well as custom defined quantization parameters, such as clip-value), weight decay is advocated to be zero. `--decay_small` is for whether decay those small tensors or not.
+  2. Weight decay is originally proposed to avoid overfit for the large number of parameters. For some small tensors, for example the parameters in BatchNorm layer (as well as custom defined quantization parameters, such as clip-value), weight decay is advocated to be zero. `--decay_small` is for whether to decay those small tensors or not.
   
-  3. `--custom_decay_list` and `--custom_decay` are combined for specific custom decay value to certain parameters. For example, in PACT, the clip_boundary can own its independent weight decay for regularization.
+  3. `--custom_decay_list` and `--custom_decay` are combined for specific custom decay value to certain parameters. For example, in PACT, the clip_boundary can have its own independent weight decay for regularization.
 
 
 - Learning rate
