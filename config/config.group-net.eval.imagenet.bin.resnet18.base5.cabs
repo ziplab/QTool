@@ -1,0 +1,30 @@
+
+dataset='imagenet'
+root=$FASTDIR/data/imagenet
+
+model='resnet18'
+#options="$options --width_alpha 0.25"
+
+train_batch=256
+val_batch=50
+
+case='imagenet-group_net-base5-finetune-bin-cabs_adam'
+keyword='debug,imagenet,cabs,fix,group-net,singleconv,xnor'
+
+pretrained='imagenet-group_net-base5-finetune-bin-cabs_adam-epoch4-checkpoint.pth.tar'
+options="$options --pretrained $pretrained"
+
+#options="$options --tensorboard"
+ options="$options --verbose"
+#options="$options -j2"
+ options="$options -e"
+#options="$options -r"
+ options="$options --base 5"
+
+options="$options --fm_bit 1 --fm_enable"
+options="$options --wt_bit 1 --wt_enable"
+options="$options --wt_quant_group 1"
+options="$options --padding_after_quant"
+
+
+

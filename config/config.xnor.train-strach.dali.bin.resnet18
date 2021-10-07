@@ -1,0 +1,43 @@
+
+dataset='dali'
+root=$FASTDIR/data/imagenet
+
+model='resnet18'
+#options="$options --width_alpha 0.25"
+
+train_batch=128
+val_batch=50
+
+case='dali-xnor-NReLU-stratch-bin-cbsa_wd1e-4_sgd_0'
+keyword='debug,imagenet,NReLU,fix_pooling,origin,cbsa,singleconv,real_skip,xnor'
+
+pretrained='none'
+options="$options --pretrained $pretrained"
+
+ options="$options --tensorboard"
+ options="$options --verbose"
+ options="$options -j2"
+#options="$options -e"
+#options="$options --aa"
+#options="$options --seed 3"
+#options="$options -r"
+#options="$options --re_init"
+#options="$options --stable 100"
+#options="$options --warmup 100"
+#options="$options --fp16 --opt_level O1"
+#options="$options --optimizer ADAM"
+ options="$options --wd 1e-4"
+#options="$options --wd 2e-5"
+
+epochs=60
+ options="$options --lr 1e-1 --lr_decay 0.1 --lr_policy custom_step --lr_custom_step 30,40 --nesterov"
+#options="$options --lr 5e-3 --lr_decay 0.1 --lr_policy custom_step --lr_custom_step 30,40 --nesterov"
+#options="$options --lr 1e-4 --lr_decay 0.1 --lr_policy custom_step --lr_custom_step 30,40 --nesterov"
+#options="$options --lr 1e-1 --lr_policy sgdr --lr_custom_step 60  --nesterov"
+
+options="$options --fm_bit 1 --fm_enable"
+options="$options --wt_bit 1 --wt_enable"
+options="$options --padding_after_quant"
+options="$options --fm_grad_type STE"
+
+

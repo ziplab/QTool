@@ -1,0 +1,23 @@
+
+dataset='imagenet'
+root=$FASTDIR/data/imagenet
+
+model='resnet50'
+#options="$options --width_alpha 0.25"
+
+train_batch=256
+val_batch=50
+
+case='imagenet-dorefa-eval-fp-pytorch-sgd'
+keyword='imagenet,origin,cbsa,fix_pooling,singleconv,fix'
+
+pretrained='resnet50-19c8e357.pth'
+options="$options --pretrained $pretrained"
+
+ options="$options --tensorboard"
+ options="$options --verbose"
+#options="$options -j2"
+ options="$options -e"
+#options="$options -r"
+#options="$options --fp16 --opt_level O1"
+

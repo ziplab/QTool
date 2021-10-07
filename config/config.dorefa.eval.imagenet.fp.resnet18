@@ -1,0 +1,21 @@
+
+dataset='imagenet'
+root=$FASTDIR/data/imagenet
+
+model='resnet18'
+#options="$options --width_alpha 0.25"
+
+train_batch=256
+val_batch=50
+
+case='dali-dorefa-stratch-fp-bacs_0'
+keyword='imagenet,origin,dorefa,preBN,bacs'
+
+pretrained='None'
+pretrained='dali-dorefa-stratch-fp-bacs_0-model_best.pth.tar'
+options="$options --pretrained $pretrained"
+
+options="$options --tensorboard"
+options="$options --verbose"
+options="$options -e"
+

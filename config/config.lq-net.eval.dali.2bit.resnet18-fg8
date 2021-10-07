@@ -1,0 +1,25 @@
+
+dataset='dali'
+root=$FASTDIR/data/imagenet
+
+model='resnet18'
+#options="$options --width_alpha 0.25"
+
+train_batch=128
+val_batch=50
+
+case='dali-fr-lqnet-finetune-2bit-fg8-bacs_1'
+keyword='imagenet,origin,preBN,bacs,custom-update,mean,lq'
+
+pretrained='none'
+pretrained='dali-fr-lqnet-finetune-2bit-fg8-bacs_1-model_best.pth.tar'
+options="$options --pretrained $pretrained"
+
+#options="$options --tensorboard"
+#options="$options --verbose"
+ options="$options -j2"
+ options="$options -e"
+
+options="$options --fm_bit 2 --fm_enable"
+options="$options --wt_bit 2 --wt_enable"
+options="$options --fm_quant_group 8"

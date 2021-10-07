@@ -1,0 +1,22 @@
+
+dataset='imagenet'
+root=$FASTDIR/data/imagenet
+
+model='pytorch-resnet18'
+#options="$options --width_alpha 0.25"
+
+train_batch=256
+val_batch=50
+
+case='imagenet-dorefa-stratch-fp-sgd'
+keyword='imagenet'
+
+pretrained='none'
+pretrained='resnet18_w32a32.pth '
+options="$options --pretrained $pretrained"
+
+ options="$options --tensorboard"
+ options="$options --verbose"
+#options="$options -j2"
+ options="$options -e"
+

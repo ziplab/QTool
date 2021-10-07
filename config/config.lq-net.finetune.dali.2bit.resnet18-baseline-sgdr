@@ -1,0 +1,40 @@
+
+dataset='dali'
+root=$FASTDIR/data/imagenet
+
+model='resnet18'
+#options="$options --width_alpha 0.25"
+
+train_batch=128
+val_batch=50
+
+case='dali-lq_net-finetune-2bit-bacs_sgd_1'
+keyword='imagenet,origin,preBN,bacs,custom-update,lq'
+
+pretrained='none'
+pretrained='dali-dorefa-stratch-fp-bacs_0-model_best.pth.tar'
+options="$options --pretrained $pretrained"
+
+ options="$options --tensorboard"
+ options="$options --verbose"
+ options="$options -j4"
+#options="$options -g0"
+#options="$options --aa"
+ options="$options -r"
+#options="$options --re_init"
+#options="$options -e"
+#options="$options --fp16 --opt_level O1"
+ options="$options --decay_small"
+ options="$options --stable 20"
+#options="$options --optimizer ADAM"
+ options="$options --wd 1e-4"
+
+ epochs=120
+#options="$options --lr 1e-3 --lr_decay 1 --lr_policy poly --lr_custom_step 120 --nesterov"
+ options="$options --lr 1e-3 --lr_policy sgdr --lr_custom_step 8,24 --eta_min 1e-6 --nesterov"
+#options="$options --lr 5e-2 --lr_decay 0.1 --lr_policy custom_step --lr_custom_step 30,60,85,95,105 --nesterov"
+
+ options="$options --fm_bit 2 --fm_enable"
+ options="$options --wt_bit 2 --wt_enable"
+#options="$options --wt_adaptive mean-var"
+

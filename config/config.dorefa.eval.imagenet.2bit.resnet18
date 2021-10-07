@@ -1,0 +1,29 @@
+
+dataset='imagenet'
+root=$FASTDIR/data/imagenet
+
+model='resnet18'
+#options="$options --width_alpha 0.25"
+
+train_batch=128
+val_batch=50
+
+case='dali-dorefa-finetune-2bit-bacs-fb_1.0-sgd_0-O1'
+keyword='imagenet,origin,preBN,bacs,custom-update,debug,dorefa'
+
+pretrained='none'
+pretrained='dali-dorefa-finetune-2bit-bacs-fb_1.0-sgd_0-O1-model_best.pth.tar'
+options="$options --pretrained $pretrained"
+
+ options="$options --tensorboard"
+ options="$options --verbose"
+#options="$options -j2"
+ options="$options -e"
+ options="$options --fp16 --opt_level O1"
+ options="$options --decay_small"
+
+ options="$options --fm_bit 2 --fm_enable"
+ options="$options --wt_bit 2 --wt_enable"
+ options="$options --wt_quant_group 1"
+
+

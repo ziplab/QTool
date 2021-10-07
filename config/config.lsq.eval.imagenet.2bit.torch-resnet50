@@ -1,0 +1,29 @@
+
+dataset='imagenet'
+root=$FASTDIR/data/imagenet
+
+model='pytorch-resnet50'
+
+train_batch=256
+val_batch=50
+
+case='imagenet-lsq-finetune-2bit_sgd'
+keyword='imagenet,dorefa,lsq,save,raw'
+
+#options="$options --pretrained lsq_best_model_a2w2.pth"
+
+#options="$options --old weights/pytorch-resnet50/resnet50_2bit_dorefa_clip_73.798.pth"
+#options="$options --new weights/pytorch-resnet50/lsq_best_model_a2w2-old.pth"
+
+#keyword='imagenet,dorefa,lsq,save'
+#options="$options --old weights/pytorch-resnet50/lsq_best_model_a2w2.pth"
+#options="$options --new weights/pytorch-resnet50/lsq_best_model_a2w2-new.pth"
+ options="$options --pretrained lsq_best_model_a2w2-new.pth"
+
+ options="$options -e"
+
+ options="$options --fm_bit 2 --fm_enable"
+ options="$options --wt_bit 2 --wt_enable"
+ options="$options --fm_quant_group 1"
+ options="$options --wt_quant_group 1"
+ options="$options --wt_adaptive var-mean"

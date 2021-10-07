@@ -1,0 +1,42 @@
+
+dataset='imagenet'
+root=$FASTDIR/data/imagenet
+
+model='resnet18'
+#options="$options --width_alpha 0.25"
+
+train_batch=128
+val_batch=50
+
+case='imagenet-pact-finetune-2bit-bacs_sgd_0'
+keyword='imagenet,origin,preBN,bacs,pact'
+
+pretrained='none'
+pretrained='dali-dorefa-stratch-fp-bacs_0-model_best.pth.tar'
+options="$options --pretrained $pretrained"
+
+ options="$options --tensorboard"
+ options="$options --verbose"
+#options="$options -j2"
+#options="$options -g0"
+#options="$options --aa"
+#options="$options -r"
+#options="$options --re_init"
+#options="$options -e"
+#options="$options --fp16 --opt_level O1"
+ options="$options --decay_small"
+ options="$options --wd 1e-4"
+#options="$options --wd 2e-5"
+
+ epochs=120
+# halve the lr as the batch size is half ?
+ options="$options --lr 5e-2 --lr_decay 0.1 --lr_policy custom_step --lr_custom_step 30,60,85,95,105 --nesterov"
+
+#epochs=40
+#options="$options --lr 5e-3 --lr_decay 0.1 --lr_policy custom_step --lr_custom_step 15,25,35 --nesterov"
+#options="$options --lr 5e-3 --lr_policy sgdr --lr_custom_step 40 --nesterov"
+
+options="$options --fm_bit 2 --fm_enable"
+options="$options --wt_bit 2 --wt_enable"
+options="$options --fm_boundary 1.0"
+options="$options --wt_boundary 1.0"

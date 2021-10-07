@@ -1,0 +1,26 @@
+
+dataset='imagenet'
+root=$FASTDIR/data/imagenet
+
+model='resnet18'
+#options="$options --width_alpha 0.25"
+
+train_batch=256
+val_batch=50
+
+case='imagenet-dorefa-stratch-fp-cbsa_pytorch'
+keyword='imagenet,origin,cbsa,fix_pooling,singleconv,fix'
+
+# python tools.py --keyword update,raw \
+# --mf weights/resnet18/pytorch-resnet-import-cbsa-fp_mf.txt \
+# --mt weights/resnet18/pytorch-resnet-import-cbsa-fp_mt.txt \
+# --old weights/pytorch-resnet18/resnet18_w32a32.pth \
+# --new weights/resnet18/pytorch-resnet-import-cbsa-fp.pth
+
+pretrained='pytorch-resnet-import-cbsa-fp.pth'
+options="$options --pretrained $pretrained"
+
+options="$options --tensorboard"
+options="$options --verbose"
+options="$options -e"
+

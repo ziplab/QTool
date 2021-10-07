@@ -1,0 +1,20 @@
+
+dataset='imagenet'
+root=$FASTDIR/data/imagenet
+
+model='resnet50'
+#options="$options --width_alpha 0.25"
+
+train_batch=128
+val_batch=50
+
+case='imagenet-fixup-stratch-fp-cbsa-mixup0.7-sgd_1'
+keyword='imagenet,origin,cbsa,fix,fixup,bias,singleconv'
+
+pretrained='dali-fixup-stratch-fp-cbsa-sgd_1-model_best-update.pth.tar'
+options="$options --pretrained $pretrained"
+
+ options="$options --tensorboard"
+ options="$options --verbose"
+#options="$options -r"
+ options="$options -e"

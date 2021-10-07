@@ -1,0 +1,22 @@
+
+dataset='imagenet'
+root=$FASTDIR/data/imagenet
+
+model='pytorch-resnet18'
+
+train_batch=256
+val_batch=50
+
+case='imagenet-lsq-finetune-2bit_sgd'
+keyword='imagenet,dorefa,lsq'
+
+pretrained='lsq_best_model_a2w2.pth'
+options="$options --pretrained $pretrained"
+
+ options="$options -e"
+
+ options="$options --fm_bit 2 --fm_enable"
+ options="$options --wt_bit 2 --wt_enable"
+ options="$options --fm_quant_group 1"
+ options="$options --wt_quant_group 1"
+ options="$options --wt_adaptive var-mean"
